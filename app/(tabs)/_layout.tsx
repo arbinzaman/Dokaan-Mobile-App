@@ -3,7 +3,6 @@ import React from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -20,26 +19,37 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
+            borderTopWidth: 0, // hides border on iOS
+            backgroundColor: 'transparent',
           },
-          default: {},
+          android: {
+            elevation: 0, // hides shadow on Android
+            borderTopWidth: 0,
+            backgroundColor: 'transparent',
+          },
+          default: {
+            borderTopWidth: 0,
+            elevation: 0,
+          },
         }),
-      }}>
+      }}
+    >
+      {/* This hides the 'index' screen from the tab bar */}
+      <Tabs.Screen name="index" options={{ href: null }} />
+      
+      {/* Add other screens like this example */}
+      {/* 
       <Tabs.Screen
-        name="index"
+        name="profile"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <IconSymbol name="user" color={color} size={size} />
+          ),
         }}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      */}
     </Tabs>
   );
 }
