@@ -1,40 +1,46 @@
 {
   "expo": {
     "name": "Dokaan",
-    "slug": "Dokaan",
+    "slug": "Dokaan-Mobile-App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/DOKAAN Only D.png",
+    "icon": "./assets/images/dokaan_png_image.png",
     "scheme": "dokaanmobileapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes and upload images."
+      }
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/DOKAAN Only D.png",
-        "backgroundColor": "#ffffff"
-      },
+      "permissions": ["CAMERA"],
+      "package": "com.arbinzaman.DokaanMobileApp",
       "edgeToEdgeEnabled": true,
-      "package": "com.arbinzaman.DokaanMobileApp"
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/dokaan_png_image.png",
+        "backgroundColor": "#ffffff"
+      }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/DOKAAN Only D.png"
+      "favicon": "./assets/images/dokaan_png_image.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/DOKAAN Only D.png",
+          "image": "./assets/images/dokaan_png_image.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-camera",
+      "expo-dev-client"
     ],
     "experiments": {
       "typedRoutes": true
