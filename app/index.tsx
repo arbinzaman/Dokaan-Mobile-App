@@ -1,13 +1,12 @@
 // app/index.tsx
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Button, ActivityIndicator } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { WebView } from "react-native-webview";
 import { useCameraPermissions } from "expo-camera";
 
 export default function HomeScreen() {
   const [permission, requestPermission] = useCameraPermissions();
-  const [showWebView, setShowWebView] = useState(false);
 
   useEffect(() => {
     if (!permission || permission.status !== "granted") {
@@ -28,31 +27,24 @@ export default function HomeScreen() {
     return (
       <View style={styles.centered}>
         <Text style={{ marginBottom: 16 }}>Camera access is required to continue.</Text>
-        <Button title="Grant Camera Access" onPress={requestPermission} />
+        <Text style={{ marginBottom: 16 }}>Please grant permission to proceed.</Text>
       </View>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      {showWebView ? (
-        <WebView
-          source={{ uri: "https://dokaan.vercel.app/dashboard" }}
-          style={{ flex: 1 }}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          mediaPlaybackRequiresUserAction={false}
-          allowsInlineMediaPlayback={true}
-          originWhitelist={["*"]}
-          allowFileAccess={true}
-          allowingReadAccessToURL={"*"}
-        />
-      ) : (
-        <View style={styles.centered}>
-          <Text style={{ marginBottom: 16 }}>Camera permission granted!</Text>
-          <Button title="Go to Scanner" onPress={() => setShowWebView(true)} />
-        </View>
-      )}
+      <WebView
+        source={{ uri: "https://dokaan.vercel.app/dashboard" }}
+        style={{ flex: 1 }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        mediaPlaybackRequiresUserAction={false}
+        allowsInlineMediaPlayback={true}
+        originWhitelist={["*"]}
+        allowFileAccess={true}
+        allowingReadAccessToURL={"*"}
+      />
     </SafeAreaView>
   );
 }
